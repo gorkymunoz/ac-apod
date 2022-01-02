@@ -9,7 +9,6 @@ import com.gorkymunoz.ac.apod.domain.APOD
  */
 class getAPOD(private val repository: APODRepository) {
 
-    suspend operator fun invoke(): APOD {
-        return repository.getAPOD()
-    }
+    suspend operator fun invoke(): APOD = repository.getAPOD()
+
 }
