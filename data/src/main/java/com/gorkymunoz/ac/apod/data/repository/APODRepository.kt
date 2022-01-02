@@ -3,6 +3,7 @@ package com.gorkymunoz.ac.apod.data.repository
 import com.gorkymunoz.ac.apod.data.source.LocalDataSource
 import com.gorkymunoz.ac.apod.data.source.RemoteDataSource
 import com.gorkymunoz.ac.apod.domain.APOD
+import java.time.LocalDate
 
 
 /**
@@ -14,7 +15,7 @@ class APODRepository(
 ) {
 
     suspend fun getAPOD(): APOD {
-        return getAPODByDate("")
+        return getAPODByDate(LocalDate.now().toString())
     }
 
     suspend fun getAPODByDate(date: String): APOD {
