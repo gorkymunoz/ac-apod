@@ -9,5 +9,5 @@ import java.time.LocalDate
  */
 class GetAPODByDate(private val repository: APODRepository) {
 
-    suspend operator fun invoke(date: LocalDate) = repository.getAPODByDate(date.toString())
+    suspend operator fun invoke(date: String) = repository.getAPODByDate(date)
 }
