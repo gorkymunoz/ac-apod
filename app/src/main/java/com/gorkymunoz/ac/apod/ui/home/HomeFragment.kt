@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.palette.graphics.Palette
@@ -21,7 +20,6 @@ import com.gorkymunoz.ac.apod.data.server.source.NasaAPODDataSource
 import com.gorkymunoz.ac.apod.databinding.HomeFragmentBinding
 import com.gorkymunoz.ac.apod.domain.APOD
 import com.gorkymunoz.ac.apod.framework.dispatcherprovider.StandardDispatchers
-import com.gorkymunoz.ac.apod.ui.MainViewModel
 import com.gorkymunoz.ac.apod.ui.base.BaseFragment
 import com.gorkymunoz.ac.apod.usecases.GetAPOD
 import com.gorkymunoz.ac.apod.utils.getVMFactory
@@ -52,7 +50,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             )
         }
     }
-    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun setUpViewBinding(
         inflater: LayoutInflater,
