@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.gorkymunoz.ac.apod.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment2"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -22,4 +26,13 @@
         android:name="com.gorkymunoz.ac.apod.ui.library.LibraryFragment"
         android:label="library_fragment"
         tools:layout="@layout/library_fragment" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.gorkymunoz.ac.apod.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="date"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -4,4 +4,9 @@
     <string name="bottom_nav_home">Home</string>
     <string name="bottom_nav_search">Search</string>
     <string name="bottom_nav_library">Your Library</string>
+    <string name="home_title">Astronomic Picture Of The Day</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="normal">Normal</string>
+    <string name="hd">HD</string>
 </resources>
