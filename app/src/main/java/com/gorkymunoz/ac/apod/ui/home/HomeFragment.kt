@@ -24,7 +24,9 @@ import com.gorkymunoz.ac.apod.ui.base.BaseFragment
 import com.gorkymunoz.ac.apod.usecases.GetAPOD
 import com.gorkymunoz.ac.apod.utils.getVMFactory
 import com.gorkymunoz.ac.apod.utils.loadImageAsBitmap
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     companion object {

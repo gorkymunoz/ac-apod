@@ -18,12 +18,9 @@ import com.gorkymunoz.ac.apod.usecases.GetAPODByDate
 import com.gorkymunoz.ac.apod.usecases.ToggleFavoriteAPOD
 import com.gorkymunoz.ac.apod.utils.getVMFactory
 import com.gorkymunoz.ac.apod.utils.loadImage
+import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private val viewModel: DetailViewModel by viewModels {
