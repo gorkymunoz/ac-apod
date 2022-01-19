@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.gorkymunoz.ac.apod.ui.HomeActivity
 
 
 /**
@@ -30,5 +31,9 @@ abstract class BaseFragment<ViewBindingType : ViewBinding> : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    protected fun getHomeActivity(): HomeActivity {
+        return activity as HomeActivity
     }
 }
