@@ -3,4 +3,6 @@
     <dimen name="bottom_navigation_radius">
         16dp
     </dimen>
+
+    <dimen name="card_corner_radius">24dp</dimen>
 </resources>
