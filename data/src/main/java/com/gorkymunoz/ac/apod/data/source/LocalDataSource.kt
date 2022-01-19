@@ -8,7 +8,8 @@ import com.gorkymunoz.ac.apod.domain.APOD
  */
 interface LocalDataSource {
 
-    suspend fun getAPOD(): APOD
+    suspend fun getAPOD(): APOD?
     suspend fun saveAPOD(apod: APOD)
     suspend fun findByDate(date: String): APOD?
+    suspend fun updateAPOD(apod: APOD)
 }
