@@ -2,6 +2,7 @@ package com.gorkymunoz.ac.apod.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.gorkymunoz.ac.apod.domain.MediaType
 
 
 /**
@@ -13,7 +14,7 @@ data class APOD(
     val title: String,
     val copyright: String?,
     val explanation: String,
-    val mediaType: String,
+    val mediaType: MediaType,
     val url: String,
     val hdUrl: String?,
     val isFavorite: Boolean
