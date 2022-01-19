@@ -15,7 +15,8 @@ class APODRepository(
 ) {
 
     suspend fun getAPOD(): APOD {
-        return getAPODByDate(LocalDate.now().toString())
+        val now = LocalDate.now()
+        return getAPODByDate(now.toString())
     }
 
     suspend fun getAPODByDate(date: String): APOD {
@@ -30,5 +31,9 @@ class APODRepository(
 
     suspend fun getAPODByDateRange(initialDate: String, endDate: String): List<APOD> {
         return remoteDataSource.getAPODByDateRange(initialDate, endDate)
+    }
+
+    suspend fun updateAPOD(apod: APOD) {
+        return localDataSource.updateAPOD(apod)
     }
 }
