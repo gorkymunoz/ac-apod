@@ -7,5 +7,6 @@ data class APOD(
     val explanation: String,
     val mediaType: MediaType,
     val url: String,
-    val hdUrl: String?
+    val hdUrl: String?,
+    val isFavorite: Boolean
 )
