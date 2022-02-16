@@ -4,57 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.gorkymunoz.ac.apod.APODApp
-import com.gorkymunoz.ac.apod.data.database.source.APODRoomDataSource
-import com.gorkymunoz.ac.apod.data.repository.APODRepository
-import com.gorkymunoz.ac.apod.data.server.APODRetrofitClient
-import com.gorkymunoz.ac.apod.data.server.source.NasaAPODDataSource
 import com.gorkymunoz.ac.apod.databinding.FragmentDetailBinding
-import com.gorkymunoz.ac.apod.framework.dispatcherprovider.StandardDispatchers
 import com.gorkymunoz.ac.apod.ui.base.BaseFragment
-import com.gorkymunoz.ac.apod.usecases.GetAPODByDate
-import com.gorkymunoz.ac.apod.usecases.ToggleFavoriteAPOD
-import com.gorkymunoz.ac.apod.utils.getVMFactory
 import com.gorkymunoz.ac.apod.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
-    private val viewModel: DetailViewModel by viewModels {
-        getVMFactory {
-            DetailViewModel(
-                GetAPODByDate(
-                    APODRepository(
-                        NasaAPODDataSource(
-                            APODRetrofitClient.createService(),
-                            StandardDispatchers(),
-                            "DEMO_KEY"
-                        ),
-                        APODRoomDataSource(
-                            (getHomeActivity().applicationContext as APODApp).db,
-                            StandardDispatchers()
-                        )
-                    )
-                ),
-                ToggleFavoriteAPOD(
-                    APODRepository(
-                        NasaAPODDataSource(
-                            APODRetrofitClient.createService(),
-                            StandardDispatchers(),
-                            "DEMO_KEY"
-                        ),
-                        APODRoomDataSource(
-                            (getHomeActivity().applicationContext as APODApp).db,
-                            StandardDispatchers()
-                        )
-                    )
-                )
-            )
-        }
-    }
+    private val viewModel: DetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
