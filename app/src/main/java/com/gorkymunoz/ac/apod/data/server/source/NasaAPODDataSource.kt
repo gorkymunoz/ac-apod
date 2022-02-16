@@ -5,17 +5,18 @@ import com.gorkymunoz.ac.apod.data.server.api.APODApi
 import com.gorkymunoz.ac.apod.data.source.RemoteDataSource
 import com.gorkymunoz.ac.apod.domain.APOD
 import com.gorkymunoz.ac.apod.framework.dispatcherprovider.DispatcherProvider
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Named
 
 
 /**
  * Created by Gorky Muñoz on 2/1/2022.
  */
-class NasaAPODDataSource(
+class NasaAPODDataSource @Inject constructor(
     private val service: APODApi,
     private val dispatchers: DispatcherProvider,
-    private val apiKey: String
+    @Named("apiKey") private val apiKey: String
 ) :
     RemoteDataSource {
 
