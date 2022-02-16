@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.gorkymunoz.ac.apod.domain.APOD
 import com.gorkymunoz.ac.apod.usecases.GetAPODByDate
 import com.gorkymunoz.ac.apod.usecases.ToggleFavoriteAPOD
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 /**
  * Created by Gorky Muñoz on 18/1/2022.
  */
-class DetailViewModel(
+@HiltViewModel
+class DetailViewModel @Inject constructor(
     private val apodByDate: GetAPODByDate,
     private val toggleFavorite: ToggleFavoriteAPOD
 ) :

@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gorkymunoz.ac.apod.domain.APOD
 import com.gorkymunoz.ac.apod.usecases.GetAPOD
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val getAPODUseCase: GetAPOD
 ) : ViewModel() {
 
