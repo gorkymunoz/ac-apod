@@ -1,30 +1,28 @@
 package com.gorkymunoz.ac.apod.ui.home
 
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Target
 import androidx.palette.graphics.get
-import com.gorkymunoz.ac.apod.APODApp
-import com.gorkymunoz.ac.apod.data.database.source.APODRoomDataSource
-import com.gorkymunoz.ac.apod.data.repository.APODRepository
-import com.gorkymunoz.ac.apod.data.server.APODRetrofitClient
-import com.gorkymunoz.ac.apod.data.server.source.NasaAPODDataSource
 import com.gorkymunoz.ac.apod.databinding.HomeFragmentBinding
 import com.gorkymunoz.ac.apod.domain.APOD
-import com.gorkymunoz.ac.apod.framework.dispatcherprovider.StandardDispatchers
+import com.gorkymunoz.ac.apod.domain.MediaType
 import com.gorkymunoz.ac.apod.ui.base.BaseFragment
-import com.gorkymunoz.ac.apod.usecases.GetAPOD
-import com.gorkymunoz.ac.apod.utils.getVMFactory
 import com.gorkymunoz.ac.apod.utils.loadImageAsBitmap
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
@@ -33,25 +31,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         fun newInstance() = HomeFragment()
     }
 
-    private val viewModel: HomeViewModel by viewModels {
-        getVMFactory {
-            HomeViewModel(
-                GetAPOD(
-                    APODRepository(
-                        NasaAPODDataSource(
-                            APODRetrofitClient.createService(),
-                            StandardDispatchers(),
-                            "DEMO_KEY"
-                        ),
-                        APODRoomDataSource(
-                            (getHomeActivity().applicationContext as APODApp).db,
-                            StandardDispatchers()
-                        )
-                    )
-                )
-            )
-        }
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun setUpViewBinding(
         inflater: LayoutInflater,
@@ -60,15 +40,19 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.apod.observe(this) {
+        viewModel.apod.observe(viewLifecycleOwner) {
             bindAPOD(it)
         }
-        //loadImage("https://apod.nasa.gov/apod/image/2201/LeonardTail_Hattenbach_960.jpg")
 
     }
 
     private fun bindAPOD(apod: APOD) {
-        loadImage(apod.url)
+        when (apod.mediaType) {
+            MediaType.IMAGE -> loadImage(apod.url)
+            MediaType.VIDEO -> loadVideo(apod.url)
+        }
+        binding.vvHomeApod.isVisible = apod.mediaType == MediaType.VIDEO
+        binding.ivHomeApod.isVisible = apod.mediaType == MediaType.IMAGE
         binding.tvApodName.text = apod.title
         binding.laHomeLoading.isVisible = apod.url.isEmpty()
         binding.btnHomeLearnMore.setOnClickListener {
@@ -78,6 +62,21 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 )
             )
         }
+    }
+
+    private fun loadVideo(url: String) {
+        val uri = Uri.parse(url)
+        val mediaController = MediaController(context)
+        mediaController.setAnchorView(binding.vvHomeApod)
+        binding.vvHomeApod.setMediaController(mediaController)
+        binding.vvHomeApod.setOnErrorListener { _, i, i2 ->
+            Log.d(HomeFragment::class.java.name, "What: $i extra: $i2")
+            // TODO: implement alert dialog
+//            val intent = Intent(Intent.ACTION_VIEW, uri)
+//            startActivity(intent)
+            true
+        }
+        binding.vvHomeApod.setVideoURI(uri)
     }
 
     private fun loadImage(url: String) {
